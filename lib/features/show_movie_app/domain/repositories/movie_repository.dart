@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:show_movie_app/core/error/failure.dart';
+import 'package:show_movie_app/core/error/failures.dart';
 import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart';
 
 abstract class MovieRepository {

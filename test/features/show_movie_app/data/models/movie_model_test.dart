@@ -22,7 +22,7 @@ void main() {
 
   group('fromJson', () {
     test(
-      'should return a valid model when the JSON number is an String',
+      'should return a valid model when the JSON number is an Int',
       () async {
         final Map<String, dynamic> jsonMap =
             json.decode(fixture('movie_double.json'));
