@@ -27,7 +27,7 @@ void main() {
         final Map<String, dynamic> jsonMap =
             json.decode(fixture('movie_double.json'));
 
-        final result = MovieModel.fromJson(jsonMap);
+        final result = MovieModel.fromJson(jsonMap) as List;
 
         expect(result, tMovieModel);
       },

@@ -7,9 +7,8 @@ import '../../../../core/network/network_info.dart';
 import '../../domain/repositories/movie_repository.dart';
 import '../datasources/movie_local_datasource.dart';
 import '../datasources/movie_remote_datasource.dart';
-import '../models/movie_model.dart';
 
-typedef _MoviePopularOrFreeToWatch = Future<List<MovieModel>> Function();
+typedef _MoviePopularOrFreeToWatch = Future<List<MovieEntity>> Function();
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource movieRemoteDataSource;
