@@ -5,13 +5,15 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:show_movie_app/core/network/network_info.dart' as _i6;
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_local_datasource.dart'
+import 'package:show_movie_app/app/core/network/network_info.dart' as _i7;
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_local_datasource.dart'
     as _i5;
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_remote_datasource.dart'
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_remote_datasource.dart'
     as _i2;
-import 'package:show_movie_app/features/show_movie_app/data/models/movie_model.dart'
+import 'package:show_movie_app/app/features/show_movie_app/data/models/movie_model.dart'
     as _i4;
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart'
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -59,7 +61,7 @@ class MockMovieLocalDataSource extends _i1.Mock
           returnValue: Future<List<_i4.MovieModel>>.value(<_i4.MovieModel>[]))
       as _i3.Future<List<_i4.MovieModel>>);
   @override
-  _i3.Future<void> cacheMovies(List<_i4.MovieModel>? movieToCache) =>
+  _i3.Future<void> cacheMovies(List<_i6.MovieEntity>? movieToCache) =>
       (super.noSuchMethod(Invocation.method(#cacheMovies, [movieToCache]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
@@ -68,7 +70,7 @@ class MockMovieLocalDataSource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i7.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }

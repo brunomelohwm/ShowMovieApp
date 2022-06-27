@@ -11,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  localization: ^2.1.0
   # Service locator
   get_it: ^7.2.0
   # Bloc for state management
@@ -24,6 +27,10 @@ dependencies:
   http: ^0.13.4
   # Local cache
   shared_preferences: ^2.0.15
+  bloc: ^8.0.3
+  intl: ^0.17.0
+  bloc_test: ^9.0.3
+  
 
 dev_dependencies:
   flutter_test:

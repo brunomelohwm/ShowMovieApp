@@ -1,6 +1,10 @@
 {
-    "posterPath": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mzTMedMt7bPBATYvC6xm6IBTcbu.jpg",
-    "releaseDate": "05/12/2022",
-    "title": "The Northman",
-    "voteAverage": 73
+    "results": [
+        {
+            "posterPath": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mzTMedMt7bPBATYvC6xm6IBTcbu.jpg",
+            "releaseDate": "05/12/2022",
+            "title": "The Northman",
+            "voteAverage": 73.0
+        }
+    ]
 }

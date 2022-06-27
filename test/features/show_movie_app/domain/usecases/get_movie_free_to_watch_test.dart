@@ -1,24 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:show_movie_app/core/error/failures.dart';
-import 'package:show_movie_app/core/usecases/usecase.dart';
-import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart';
+import 'package:show_movie_app/app/core/error/failures.dart';
+import 'package:show_movie_app/app/core/usecases/usecase.dart';
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:show_movie_app/features/show_movie_app/domain/repositories/movie_repository.dart';
-import 'package:show_movie_app/features/show_movie_app/domain/usecases/get_movie_free_to_watch.dart';
+import 'package:show_movie_app/app/features/show_movie_app/domain/repositories/movie_repository.dart';
+import 'package:show_movie_app/app/features/show_movie_app/domain/usecases/get_movie_free_to_watch_usecase.dart';
 
 import 'get_movie_free_to_watch_test.mocks.dart';
 
 @GenerateMocks([MovieRepository])
 void main() {
-  late GetMovieFreeToWatch usecase;
+  late GetMovieFreeToWatchUsecase usecase;
   late MockMovieRepository mockMovieRepository;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    usecase = GetMovieFreeToWatch(repository: mockMovieRepository);
+    usecase = GetMovieFreeToWatchUsecase(repository: mockMovieRepository);
   });
 
   const tMovieFreeToWatch = [
