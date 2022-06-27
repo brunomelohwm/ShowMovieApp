@@ -6,10 +6,10 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:show_movie_app/core/error/failures.dart' as _i5;
-import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart'
+import 'package:show_movie_app/app/core/error/failures.dart' as _i5;
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart'
     as _i6;
-import 'package:show_movie_app/features/show_movie_app/domain/repositories/movie_repository.dart'
+import 'package:show_movie_app/app/features/show_movie_app/domain/repositories/movie_repository.dart'
     as _i3;
 
 // ignore_for_file: type=lint

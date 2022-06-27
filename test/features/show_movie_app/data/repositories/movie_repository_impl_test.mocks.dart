@@ -5,14 +5,14 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:show_movie_app/core/network/network_info.dart' as _i7;
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_local_datasource.dart'
+import 'package:show_movie_app/app/core/network/network_info.dart' as _i7;
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_local_datasource.dart'
     as _i5;
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_remote_datasource.dart'
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_remote_datasource.dart'
     as _i2;
-import 'package:show_movie_app/features/show_movie_app/data/models/movie_model.dart'
+import 'package:show_movie_app/app/features/show_movie_app/data/models/movie_model.dart'
     as _i4;
-import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart'
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart'
     as _i6;
 
 // ignore_for_file: type=lint

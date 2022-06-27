@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -49,7 +48,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      return (data['results'] as List<Map<String, dynamic>>).map((e) {
+      return (data['results'] as List<dynamic>).map((e) {
         return MovieModel.fromJson(e);
       }).toList();
     } else {

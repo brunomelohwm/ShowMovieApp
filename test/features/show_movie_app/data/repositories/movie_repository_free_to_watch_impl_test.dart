@@ -2,13 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:show_movie_app/core/error/exceptions.dart';
-import 'package:show_movie_app/core/error/failures.dart';
-import 'package:show_movie_app/core/network/network_info.dart';
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_local_datasource.dart';
-import 'package:show_movie_app/features/show_movie_app/data/datasources/movie_remote_datasource.dart';
-import 'package:show_movie_app/features/show_movie_app/data/models/movie_model.dart';
-import 'package:show_movie_app/features/show_movie_app/data/repositories/movie_repository_impl.dart';
+import 'package:show_movie_app/app/core/error/exceptions.dart';
+import 'package:show_movie_app/app/core/error/failures.dart';
+import 'package:show_movie_app/app/core/network/network_info.dart';
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_local_datasource.dart';
+import 'package:show_movie_app/app/features/show_movie_app/data/datasources/movie_remote_datasource.dart';
+import 'package:show_movie_app/app/features/show_movie_app/data/models/movie_model.dart';
+import 'package:show_movie_app/app/features/show_movie_app/data/repositories/movie_repository_impl.dart';
 import 'movie_repository_impl_test.mocks.dart';
 
 @GenerateMocks([MovieRemoteDataSource, MovieLocalDataSource, NetworkInfo])

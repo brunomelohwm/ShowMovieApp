@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:show_movie_app/features/show_movie_app/data/models/movie_model.dart';
-import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart';
+import 'package:show_movie_app/app/features/show_movie_app/data/models/movie_model.dart';
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -16,18 +16,18 @@ void main() {
   test(
     'Should be a subclass of Movie entity',
     () async {
-      expect(tMovieModel, isA<MovieEntity>());
+      expect(tMovieModel, isA<List<MovieEntity>>());
     },
   );
 
   group('fromJson', () {
     test(
-      'should return a valid model when the JSON number is an Int',
+      'should return a valid model when the JSON number is an Integer',
       () async {
         final Map<String, dynamic> jsonMap =
             json.decode(fixture('movie_double.json'));
 
-        final result = MovieModel.fromJson(jsonMap) as List;
+        final result = MovieModel.fromJson(jsonMap);
 
         expect(result, tMovieModel);
       },
@@ -35,7 +35,8 @@ void main() {
     test(
       'should return a valid model when the JSON number is an double',
       () async {
-        final Map<String, dynamic> jsonMap = json.decode(fixture('movie.json'));
+        final Map<String, dynamic> jsonMap =
+            json.decode(fixture('movie_double.json'));
 
         final result = MovieModel.fromJson(jsonMap);
 
@@ -46,7 +47,7 @@ void main() {
 
   group('toJson', () {
     test('should return a JSON Map containing the porper data', () async {
-      final result = tMovieModel.toJson();
+      final result = tMovieModel.toJson(); //toJson
 
       final expectedMap = {
         "posterPath":

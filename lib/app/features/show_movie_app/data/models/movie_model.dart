@@ -1,4 +1,4 @@
-import 'package:show_movie_app/features/show_movie_app/domain/entities/movie_entity.dart';
+import 'package:show_movie_app/app/features/show_movie_app/domain/entities/movie_entity.dart';
 
 class MovieModel extends MovieEntity {
   const MovieModel({
@@ -14,10 +14,10 @@ class MovieModel extends MovieEntity {
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
-      posterPath: json['posterPath'] as String,
-      releaseDate: json['releaseDate'] as String,
+      posterPath: json['poster_path'] as String,
+      releaseDate: json['release_date'] as String,
       title: json['title'] as String,
-      voteAverage: double.parse(json['voteAverage'].toString()),
+      voteAverage: double.parse(json['vote_average'].toString()),
     );
   }
 
