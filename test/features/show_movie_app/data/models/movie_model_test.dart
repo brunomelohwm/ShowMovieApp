@@ -15,7 +15,7 @@ void main() {
   test(
     'Should be a subclass of Movie entity',
     () async {
-      expect(tMovieModel, isA<List<MovieEntity>>());
+      expect(tMovieModel, isA<MovieEntity>());
     },
   );
 
