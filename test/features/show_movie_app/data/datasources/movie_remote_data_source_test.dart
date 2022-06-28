@@ -19,8 +19,8 @@ void main() {
   });
 
   void setUpMockHttpClientSuccess200() {
-    when(mockHttpClient.get(any, headers: anyNamed('headers')))
-        .thenAnswer((_) async => http.Response(fixture('movie.json'), 200));
+    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+        (_) async => http.Response(fixture('response_movie.json'), 200));
   }
 
   void setUpMockHttpClientFailure404() {
