@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'app/features/show_movie_app/presenter/pages/movies_home_page.dart';
+import 'app/features/home/presenter/pages/movies_home_page.dart';
+
 
 class MovieApp extends StatelessWidget {
   const MovieApp({Key? key}) : super(key: key);
