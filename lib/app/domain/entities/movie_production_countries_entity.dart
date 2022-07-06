@@ -8,5 +8,5 @@ class MovieProductionCountriesEntity extends Equatable {
       {required this.iso31611, required this.name});
 
   @override
-  List<Object> get props => [iso31611];
+  List<Object> get props => [iso31611, name];
 }

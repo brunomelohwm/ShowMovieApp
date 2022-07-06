@@ -26,7 +26,7 @@ void main() {
       'should return a valid model ',
       () async {
         final Map<String, dynamic> jsonMap = json.decode(fixture('movie.json'));
-
+        
         final result = MovieModel.fromJson(jsonMap);
 
         expect(result, tMovieModel);

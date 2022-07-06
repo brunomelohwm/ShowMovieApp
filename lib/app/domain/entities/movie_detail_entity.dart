@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'movie_genres_entity.dart';
 import 'movie_production_companies_entity.dart';
 import 'movie_production_countries_entity.dart';

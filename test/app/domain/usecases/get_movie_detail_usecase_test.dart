@@ -5,6 +5,9 @@ import 'package:mockito/mockito.dart';
 import 'package:show_movie_app/app/core/error/failures.dart';
 import 'package:show_movie_app/app/core/usecases/usecase.dart';
 import 'package:show_movie_app/app/domain/entities/movie_detail_entity.dart';
+import 'package:show_movie_app/app/domain/entities/movie_genres_entity.dart';
+import 'package:show_movie_app/app/domain/entities/movie_production_companies_entity.dart';
+import 'package:show_movie_app/app/domain/entities/movie_production_countries_entity.dart';
 import 'package:show_movie_app/app/domain/repositories/movie_repository.dart';
 import 'package:show_movie_app/app/domain/usecases/get_movie_details_usecase.dart';
 
@@ -24,9 +27,9 @@ void main() {
     id: 10,
     originalTitle: 'O silencio dos inocentes',
     overview: 'overview',
-    genres: [],
-    productionCompanies: [],
-    productionCountries: [],
+    genres: <MovieGenresEntity>[],
+    productionCompanies: <MovieProductionCompaniesEntity>[],
+    productionCountries: <MovieProductionCountriesEntity>[],
   );
 
   test('Should get movie detail from the repository ', () async {
