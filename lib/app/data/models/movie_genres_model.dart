@@ -16,6 +16,14 @@ class MovieGenresModel extends MovieGenresEntity {
     );
   }
 
+  static List<MovieGenresModel> fromJsonList(List<dynamic> jsonList) {
+    List<MovieGenresModel> listGenres = [];
+    for (var json in jsonList) {
+      listGenres.add(MovieGenresModel.fromJson(json));
+    }
+    return listGenres;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

@@ -21,6 +21,15 @@ class MovieProductionCompaniesModel extends MovieProductionCompaniesEntity {
     );
   }
 
+  static List<MovieProductionCompaniesModel> fromJsonList(
+      List<dynamic> jsonList) {
+    List<MovieProductionCompaniesModel> listProductionCompanies = [];
+    for (var json in jsonList) {
+      listProductionCompanies.add(MovieProductionCompaniesModel.fromJson(json));
+    }
+    return listProductionCompanies;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

@@ -1,25 +1,8 @@
 {
     "id": 16,
-    "genres": [
-        {
-            "id": 5,
-            "name": "Noir"
-        }
-    ],
+    "genres": [],
     "original_title": "The Batman",
     "overview": "Após dois anos espreitando as ruas como Batman, Bruce...",
-    "production_companies": [
-        {
-            "id": 11,
-            "name": "Universal",
-            "logo_path": "imageUrl...",
-            "origin_country": "EUA"
-        }
-    ],
-    "production_countries": [
-        {
-            "iso31611": "iso31611",
-            "name": "name"
-        }
-    ]
+    "production_companies": [],
+    "production_countries": []
 }
