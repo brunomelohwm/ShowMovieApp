@@ -2,12 +2,9 @@ import 'package:show_movie_app/app/domain/entities/movie_production_countries_en
 
 class MovieProductionCountriesModel extends MovieProductionCountriesEntity {
   const MovieProductionCountriesModel({
-    required String iso31611,
-    required String name,
-  }) : super(
-          iso31611: iso31611,
-          name: name,
-        );
+    required super.iso31611,
+    required super.name,
+  });
   factory MovieProductionCountriesModel.fromJson(Map<String, dynamic> json) {
     return MovieProductionCountriesModel(
       iso31611: json['iso_3166_1'],
@@ -16,7 +13,8 @@ class MovieProductionCountriesModel extends MovieProductionCountriesEntity {
   }
 
   static List<MovieProductionCountriesModel> fromJsonList(
-      List<dynamic> jsonList) {
+    List<dynamic> jsonList,
+  ) {
     List<MovieProductionCountriesModel> listProductionCountries = [];
     for (var json in jsonList) {
       listProductionCountries.add(MovieProductionCountriesModel.fromJson(json));
@@ -25,9 +23,6 @@ class MovieProductionCountriesModel extends MovieProductionCountriesEntity {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'iso_3166_1': iso31611,
-      'name': name,
-    };
+    return {'iso_3166_1': iso31611, 'name': name};
   }
 }

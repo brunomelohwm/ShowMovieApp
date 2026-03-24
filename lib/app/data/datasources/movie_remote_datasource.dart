@@ -1,82 +1,51 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:show_movie_app/app/core/network/dio_client.dart';
 import '../../core/error/exceptions.dart';
 import '../models/movie_detail_model.dart';
 import '../models/movie_model.dart';
 
 abstract class MovieRemoteDataSource {
-  /// Calls the https://api.themoviedb.org/3/movie/popular endpoint.
-  ///
-  /// Throws a [ServerException] for all erros codes.
   Future<List<MovieModel>> getMoviePopular();
-
-  /// Calls the https://api.themoviedb.org/3/movie/now_playing endpoint.
-  ///
-  /// Throws a [ServerException] for all erros codes.
   Future<List<MovieModel>> getMovieFreeToWatch();
-
-  /// Calls the https://api.themoviedb.org/3/movie/{movie_id} endpoint.
-  ///
-  /// Throws a [ServerException] for all erros codes.
-  Future<MovieDetailModel> getMovieDetail();
+  Future<MovieDetailModel> getMovieDetail(int movieId);
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
-  final String apikey = '1f0eff93de7c467191931ae3861e556b';
-  static const _baseUrl = "https://api.themoviedb.org/3";
-  static const _key = "?api_key=1f0eff93de7c467191931ae3861e556b";
+  final DioClient dioClient;
 
-  static const moviePopularUrl = "$_baseUrl/movie/popular$_key";
-  static const movieFreeToWatchUrl = "$_baseUrl/movie/now_playing$_key";
-  static const movieDetailUrl = "$_baseUrl/movie/{movie_id}$_key";
-
-  final http.Client client;
-  MovieRemoteDataSourceImpl({
-    required this.client,
-  });
+  MovieRemoteDataSourceImpl({required this.dioClient});
 
   @override
-  Future<List<MovieModel>> getMoviePopular() =>
-      _getMovieFromUrl(moviePopularUrl);
-
-  @override
-  Future<List<MovieModel>> getMovieFreeToWatch() =>
-      _getMovieFromUrl(movieFreeToWatchUrl);
-
-  Future<List<MovieModel>> _getMovieFromUrl(String url) async {
-    final response = await client.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return (data['results'] as List<dynamic>).map((e) {
-        return MovieModel.fromJson(e);
-      }).toList();
-    } else {
-      throw ServerException();
+  Future<List<MovieModel>> getMoviePopular() async {
+    try {
+      final response = await dioClient.dio.get('/movie/popular');
+      return (response.data['results'] as List<dynamic>)
+          .map((e) => MovieModel.fromJson(e))
+          .toList();
+    } on DioException catch (e) {
+      throw ServerException(message: e.message);
     }
   }
 
   @override
-  Future<MovieDetailModel> getMovieDetail() =>
-      _getMovieDetailFromUrl(movieDetailUrl);
+  Future<List<MovieModel>> getMovieFreeToWatch() async {
+    try {
+      final response = await dioClient.dio.get('/movie/now_playing');
+      return (response.data['results'] as List<dynamic>)
+          .map((e) => MovieModel.fromJson(e))
+          .toList();
+    } on DioException catch (e) {
+      throw ServerException(message: e.message);
+    }
+  }
 
-  Future<MovieDetailModel> _getMovieDetailFromUrl(String url) async {
-    final response = await client.get(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-    });
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return data['results'].map((e) {
-        return MovieDetailModel.fromJson(e);
-      });
-    } else {
-      throw ServerException();
+  @override
+  Future<MovieDetailModel> getMovieDetail(int movieId) async {
+    try {
+      final response = await dioClient.dio.get('/movie/$movieId');
+      return MovieDetailModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ServerException(message: e.message);
     }
   }
 }
