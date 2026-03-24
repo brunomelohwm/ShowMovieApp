@@ -56,14 +56,15 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, MovieDetailEntity>> getMovieDetail() async {
+  Future<Either<Failure, MovieDetailEntity>> getMovieDetail(int movieId) async {
     return await _getMovieDetail(() {
-      return movieRemoteDataSource.getMovieDetail();
+      return movieRemoteDataSource.getMovieDetail(movieId);
     });
   }
 
   Future<Either<Failure, MovieDetailEntity>> _getMovieDetail(
-      Future<MovieDetailEntity> Function() getMovieDetail) async {
+    Future<MovieDetailEntity> Function() getMovieDetail,
+  ) async {
     if (await networkInfo.isConnected) {
       try {
         final result = await getMovieDetail();

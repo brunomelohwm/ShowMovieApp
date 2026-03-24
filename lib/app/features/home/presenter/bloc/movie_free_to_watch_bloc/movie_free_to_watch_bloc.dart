@@ -12,31 +12,34 @@ part 'movie_free_to_watch_state.dart';
 
 const String serverFailureMessage = 'Server Failure';
 const String cacheFailureMessage = 'Cache Failure';
+
 class MovieFreeToWatchBloc
     extends Bloc<MovieFreeToWatchEvent, MovieFreeToWatchState> {
   final GetMovieFreeToWatchUsecase getMovieFreeToWatchUsecase;
 
-  MovieFreeToWatchBloc(
-    this.getMovieFreeToWatchUsecase,
-  ) : super(MovieFreeToWatchInitialState()) {
+  MovieFreeToWatchBloc(this.getMovieFreeToWatchUsecase)
+    : super(MovieFreeToWatchInitialState()) {
     on<GetMovieFreeToWatchEvent>((event, emit) async {
       emit(MovieFreeToWatchLoadingState());
-      final movieListOrFailure =
-          await getMovieFreeToWatchUsecase.call(NoParams());
+      final movieListOrFailure = await getMovieFreeToWatchUsecase.call(
+        NoParams(),
+      );
 
       movieListOrFailure.fold(
-          (failure) => emit(ErrorMovieFreeToWatchState(
-              message: _mapFailureToMessage(failure))),
-          (movieList) =>
-              emit(MovieFreeToWatchLoadedState(movieFreeToWatch: movieList)));
+        (failure) => emit(
+          ErrorMovieFreeToWatchState(message: _mapFailureToMessage(failure)),
+        ),
+        (movieList) =>
+            emit(MovieFreeToWatchLoadedState(movieFreeToWatch: movieList)),
+      );
     });
   }
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure:
+      case const (ServerFailure):
         return serverFailureMessage;
-      case CacheFailure:
+      case const (CacheFailure):
         return cacheFailureMessage;
       default:
         return 'Unexpected error';

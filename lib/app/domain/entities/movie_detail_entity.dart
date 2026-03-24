@@ -23,6 +23,7 @@ class MovieDetailEntity extends Equatable {
   List<Object> get props {
     return [
       id,
+      originalTitle,
       overview,
       genres,
       productionCompanies,

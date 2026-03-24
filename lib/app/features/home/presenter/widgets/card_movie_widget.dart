@@ -5,7 +5,7 @@ import '../../../../domain/entities/movie_entity.dart';
 
 class CardMovieWidget extends StatelessWidget {
   final MovieEntity movie;
-  const CardMovieWidget({Key? key, required this.movie}) : super(key: key);
+  const CardMovieWidget({super.key, required this.movie});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,7 +30,8 @@ class CardMovieWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                         image: DecorationImage(
                           image: NetworkImage(
-                              'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                          ),
                         ),
                       ),
                     ),
@@ -63,9 +64,10 @@ class CardMovieWidget extends StatelessWidget {
                                 Text(
                                   ((movie.voteAverage * 10).toInt().toString()),
                                   style: const TextStyle(
-                                      fontSize: 9,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900),
+                                    fontSize: 9,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
                                 const Text(
                                   '%',
@@ -87,11 +89,9 @@ class CardMovieWidget extends StatelessWidget {
                                   ((movie.voteAverage) < 3.0)
                                       ? const Color.fromARGB(255, 219, 52, 52)
                                       : ((movie.voteAverage) >= 3.0 &&
-                                              (movie.voteAverage) < 7.0)
-                                          ? const Color.fromARGB(
-                                              207, 248, 245, 56)
-                                          : const Color.fromARGB(
-                                              129, 66, 224, 171),
+                                          (movie.voteAverage) < 7.0)
+                                      ? const Color.fromARGB(207, 248, 245, 56)
+                                      : const Color.fromARGB(129, 66, 224, 171),
                                 ),
                               ),
                             ),
@@ -100,18 +100,20 @@ class CardMovieWidget extends StatelessWidget {
                               width: 25,
                               child: CircularProgressIndicator(
                                 value: (movie.voteAverage / 10),
-                                backgroundColor:
-                                    const Color.fromARGB(179, 3, 32, 4),
+                                backgroundColor: const Color.fromARGB(
+                                  179,
+                                  3,
+                                  32,
+                                  4,
+                                ),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   ((movie.voteAverage) < 3.0)
                                       ? const Color.fromARGB(255, 219, 52, 52)
                                       : ((movie.voteAverage) >= 3.0 &&
-                                              (movie.voteAverage) < 7.0)
-                                          ? const Color.fromARGB(
-                                              255, 240, 230, 144)
-                                          : const Color.fromARGB(
-                                              255, 66, 224, 172),
+                                          (movie.voteAverage) < 7.0)
+                                      ? const Color.fromARGB(255, 240, 230, 144)
+                                      : const Color.fromARGB(255, 66, 224, 172),
                                 ),
                               ),
                             ),
@@ -133,11 +135,14 @@ class CardMovieWidget extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500),
-                    DateFormat("dd 'de' MMM 'de' y", "pt_BR")
-                        .format(DateTime.parse(movie.releaseDate)),
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    DateFormat(
+                      "dd 'de' MMM 'de' y",
+                      "pt_BR",
+                    ).format(DateTime.parse(movie.releaseDate)),
                   ),
                 ),
               ],

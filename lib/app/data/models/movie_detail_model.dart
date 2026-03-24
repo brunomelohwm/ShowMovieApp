@@ -5,19 +5,13 @@ import 'movie_genres_model.dart';
 
 class MovieDetailModel extends MovieDetailEntity {
   const MovieDetailModel({
-    required int id,
-    required String originalTitle,
-    required String overview,
-    required List<MovieGenresModel> genres,
-    required List<MovieProductionCompaniesModel> productionCompanies,
-    required List<MovieProductionCountriesModel> productionCountries,
-  }) : super(
-            id: id,
-            originalTitle: originalTitle,
-            overview: overview,
-            genres: genres,
-            productionCompanies: productionCompanies,
-            productionCountries: productionCountries);
+    required super.id,
+    required super.originalTitle,
+    required super.overview,
+    required List<MovieGenresModel> super.genres,
+    required List<MovieProductionCompaniesModel> super.productionCompanies,
+    required List<MovieProductionCountriesModel> super.productionCountries,
+  });
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) {
     return MovieDetailModel(
@@ -26,9 +20,11 @@ class MovieDetailModel extends MovieDetailEntity {
       overview: json['overview'],
       genres: MovieGenresModel.fromJsonList(json['genres']),
       productionCompanies: MovieProductionCompaniesModel.fromJsonList(
-          json['production_companies']),
+        json['production_companies'],
+      ),
       productionCountries: MovieProductionCountriesModel.fromJsonList(
-          json['production_countries']),
+        json['production_countries'],
+      ),
     );
   }
 

@@ -16,25 +16,25 @@ const String cacheFailureMessage = 'Cache Failure';
 class MoviePopularBloc extends Bloc<MoviePopularEvent, MoviePopularState> {
   final GetMoviePopularUsecase getMoviePopularUsecase;
 
-  MoviePopularBloc(
-    this.getMoviePopularUsecase,
-  ) : super(MoviePopularInitialState()) {
+  MoviePopularBloc(this.getMoviePopularUsecase)
+    : super(MoviePopularInitialState()) {
     on<GetMoviePopularEvent>((event, emit) async {
       emit(MoviePopularLoadingState());
       final movieListOrFailure = await getMoviePopularUsecase.call(NoParams());
       movieListOrFailure.fold(
-          (failure) => emit(
-              ErrorMoviePopularState(message: _mapFailureToMessage(failure))),
-          (movieList) =>
-              emit(MoviePopularLoadedState(moviePopular: movieList)));
+        (failure) => emit(
+          ErrorMoviePopularState(message: _mapFailureToMessage(failure)),
+        ),
+        (movieList) => emit(MoviePopularLoadedState(moviePopular: movieList)),
+      );
     });
   }
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure:
+      case const (ServerFailure):
         return serverFailureMessage;
-      case CacheFailure:
+      case const (CacheFailure):
         return cacheFailureMessage;
       default:
         return 'Unexpected error';

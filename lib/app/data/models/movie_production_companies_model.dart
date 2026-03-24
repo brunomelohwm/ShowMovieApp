@@ -2,15 +2,11 @@ import 'package:show_movie_app/app/domain/entities/movie_production_companies_en
 
 class MovieProductionCompaniesModel extends MovieProductionCompaniesEntity {
   const MovieProductionCompaniesModel({
-    required int id,
-    required String logoPath,
-    required String name,
-    required String originCountry,
-  }) : super(
-            id: id,
-            logoPath: logoPath,
-            name: name,
-            originCountry: originCountry);
+    required super.id,
+    required super.logoPath,
+    required super.name,
+    required super.originCountry,
+  });
 
   factory MovieProductionCompaniesModel.fromJson(Map<String, dynamic> json) {
     return MovieProductionCompaniesModel(
@@ -22,7 +18,8 @@ class MovieProductionCompaniesModel extends MovieProductionCompaniesEntity {
   }
 
   static List<MovieProductionCompaniesModel> fromJsonList(
-      List<dynamic> jsonList) {
+    List<dynamic> jsonList,
+  ) {
     List<MovieProductionCompaniesModel> listProductionCompanies = [];
     for (var json in jsonList) {
       listProductionCompanies.add(MovieProductionCompaniesModel.fromJson(json));

@@ -16,11 +16,7 @@ import 'package:show_movie_app/app/data/models/movie_production_countries_model.
 import 'package:show_movie_app/app/data/repositories/movie_repository_impl.dart';
 import 'movie_repository_impl_test.mocks.dart';
 
-@GenerateMocks([
-  MovieRemoteDataSource,
-  MovieLocalDataSource,
-  NetworkInfo,
-])
+@GenerateMocks([MovieRemoteDataSource, MovieLocalDataSource, NetworkInfo])
 void main() {
   late MovieRepositoryImpl repository;
   late MockMovieRemoteDataSource mockMovieRemoteDataSource;
@@ -61,68 +57,78 @@ void main() {
   group('getMoviePopular', () {
     const tMovieModel = [
       MovieModel(
-          id: 3,
-          posterPath: "PosterPath",
-          releaseDate: "05/12/2022",
-          title: "The Northman",
-          voteAverage: 73)
+        id: 3,
+        posterPath: "PosterPath",
+        releaseDate: "05/12/2022",
+        title: "The Northman",
+        voteAverage: 73,
+      ),
     ];
 
     runTestsOnline(() {
       test(
-          'should return remote data when the call to remote data source is successful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMoviePopular())
-            .thenAnswer((_) async => tMovieModel);
+        'should return remote data when the call to remote data source is successful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMoviePopular(),
+          ).thenAnswer((_) async => tMovieModel);
 
-        final result = await repository.getMoviePopular();
+          final result = await repository.getMoviePopular();
 
-        verify(mockMovieRemoteDataSource.getMoviePopular());
-        expect(result, equals(const Right(tMovieModel)));
-      });
-
-      test(
-          'should cache the data locally when the call to remote data source is successful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMoviePopular())
-            .thenAnswer((_) async => tMovieModel);
-
-        await repository.getMoviePopular();
-        verify(mockMovieRemoteDataSource.getMoviePopular());
-        verify(mockMovieLocalDataSource.cacheMovies(tMovieModel));
-      });
+          verify(mockMovieRemoteDataSource.getMoviePopular());
+          expect(result, equals(const Right(tMovieModel)));
+        },
+      );
 
       test(
-          'should return server failure when the call to remote data source is unsuccessful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMoviePopular())
-            .thenThrow(ServerException());
+        'should cache the data locally when the call to remote data source is successful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMoviePopular(),
+          ).thenAnswer((_) async => tMovieModel);
 
-        final result = await repository.getMoviePopular();
+          await repository.getMoviePopular();
+          verify(mockMovieRemoteDataSource.getMoviePopular());
+          verify(mockMovieLocalDataSource.cacheMovies(tMovieModel));
+        },
+      );
 
-        verify(mockMovieRemoteDataSource.getMoviePopular());
-        verifyZeroInteractions(mockMovieLocalDataSource);
-        expect(result, equals(Left(ServerFailure())));
-      });
+      test(
+        'should return server failure when the call to remote data source is unsuccessful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMoviePopular(),
+          ).thenThrow(ServerException());
+
+          final result = await repository.getMoviePopular();
+
+          verify(mockMovieRemoteDataSource.getMoviePopular());
+          verifyZeroInteractions(mockMovieLocalDataSource);
+          expect(result, equals(Left(ServerFailure())));
+        },
+      );
 
       runTestsOffline(() {
         test(
-            'should return last locally cached data when the cache data is present',
-            () async {
-          when(mockMovieLocalDataSource.getLastMovies())
-              .thenAnswer((_) async => tMovieModel);
-          final result = await repository.getMoviePopular();
+          'should return last locally cached data when the cache data is present',
+          () async {
+            when(
+              mockMovieLocalDataSource.getLastMovies(),
+            ).thenAnswer((_) async => tMovieModel);
+            final result = await repository.getMoviePopular();
 
-          verifyZeroInteractions(mockMovieRemoteDataSource);
-          verify(mockMovieLocalDataSource.getLastMovies());
-          expect(result, equals(const Right(tMovieModel)));
-        });
+            verifyZeroInteractions(mockMovieRemoteDataSource);
+            verify(mockMovieLocalDataSource.getLastMovies());
+            expect(result, equals(const Right(tMovieModel)));
+          },
+        );
 
         test(
           'should return Cache failure when there is no cached data present ',
           () async {
-            when(mockMovieLocalDataSource.getLastMovies())
-                .thenThrow(CacheException());
+            when(
+              mockMovieLocalDataSource.getLastMovies(),
+            ).thenThrow(CacheException());
 
             final result = await repository.getMoviePopular();
 
@@ -138,68 +144,78 @@ void main() {
   group('getMovieFreeToWatch', () {
     const tMovieModel = [
       MovieModel(
-          id: 3,
-          posterPath: "PosterPath",
-          releaseDate: "05/12/2022",
-          title: "The Northman",
-          voteAverage: 73)
+        id: 3,
+        posterPath: "PosterPath",
+        releaseDate: "05/12/2022",
+        title: "The Northman",
+        voteAverage: 73,
+      ),
     ];
 
     runTestsOnline(() {
       test(
-          'should return remote data when the call to remote data source is successful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMovieFreeToWatch())
-            .thenAnswer((_) async => tMovieModel);
+        'should return remote data when the call to remote data source is successful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMovieFreeToWatch(),
+          ).thenAnswer((_) async => tMovieModel);
 
-        final result = await repository.getMovieFreeToWatch();
+          final result = await repository.getMovieFreeToWatch();
 
-        verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
-        expect(result, equals(const Right(tMovieModel)));
-      });
-
-      test(
-          'should cache the data locally when the call to remote data source is successful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMovieFreeToWatch())
-            .thenAnswer((_) async => tMovieModel);
-
-        await repository.getMovieFreeToWatch();
-        verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
-        verify(mockMovieLocalDataSource.cacheMovies(tMovieModel));
-      });
+          verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
+          expect(result, equals(const Right(tMovieModel)));
+        },
+      );
 
       test(
-          'should return server failure when the call to remote data source is unsuccessful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMovieFreeToWatch())
-            .thenThrow(ServerException());
+        'should cache the data locally when the call to remote data source is successful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMovieFreeToWatch(),
+          ).thenAnswer((_) async => tMovieModel);
 
-        final result = await repository.getMovieFreeToWatch();
+          await repository.getMovieFreeToWatch();
+          verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
+          verify(mockMovieLocalDataSource.cacheMovies(tMovieModel));
+        },
+      );
 
-        verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
-        verifyZeroInteractions(mockMovieLocalDataSource);
-        expect(result, equals(Left(ServerFailure())));
-      });
+      test(
+        'should return server failure when the call to remote data source is unsuccessful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMovieFreeToWatch(),
+          ).thenThrow(ServerException());
+
+          final result = await repository.getMovieFreeToWatch();
+
+          verify(mockMovieRemoteDataSource.getMovieFreeToWatch());
+          verifyZeroInteractions(mockMovieLocalDataSource);
+          expect(result, equals(Left(ServerFailure())));
+        },
+      );
 
       runTestsOffline(() {
         test(
-            'should return last locally cached data when the cache data is present',
-            () async {
-          when(mockMovieLocalDataSource.getLastMovies())
-              .thenAnswer((_) async => tMovieModel);
-          final result = await repository.getMovieFreeToWatch();
+          'should return last locally cached data when the cache data is present',
+          () async {
+            when(
+              mockMovieLocalDataSource.getLastMovies(),
+            ).thenAnswer((_) async => tMovieModel);
+            final result = await repository.getMovieFreeToWatch();
 
-          verifyZeroInteractions(mockMovieRemoteDataSource);
-          verify(mockMovieLocalDataSource.getLastMovies());
-          expect(result, equals(const Right(tMovieModel)));
-        });
+            verifyZeroInteractions(mockMovieRemoteDataSource);
+            verify(mockMovieLocalDataSource.getLastMovies());
+            expect(result, equals(const Right(tMovieModel)));
+          },
+        );
 
         test(
           'should return Cache failure when there is no cached data present ',
           () async {
-            when(mockMovieLocalDataSource.getLastMovies())
-                .thenThrow(CacheException());
+            when(
+              mockMovieLocalDataSource.getLastMovies(),
+            ).thenThrow(CacheException());
 
             final result = await repository.getMovieFreeToWatch();
 
@@ -223,30 +239,34 @@ void main() {
 
     runTestsOnline(() {
       test(
-          'should return remote data when the call to remote data source is successful ',
-          () async {
-        log(tMovieDetail.originalTitle);
-        when(mockMovieRemoteDataSource.getMovieDetail())
-            .thenAnswer((_) async => tMovieDetail);
+        'should return remote data when the call to remote data source is successful ',
+        () async {
+          log(tMovieDetail.originalTitle);
+          when(
+            mockMovieRemoteDataSource.getMovieDetail(10),
+          ).thenAnswer((_) async => tMovieDetail);
 
-        final result = await repository.getMovieDetail();
+          final result = await repository.getMovieDetail(10);
 
-        verify(mockMovieRemoteDataSource.getMovieDetail());
-        expect(result, equals(const Right(tMovieDetail)));
-      });
+          verify(mockMovieRemoteDataSource.getMovieDetail(10));
+          expect(result, equals(const Right(tMovieDetail)));
+        },
+      );
 
       test(
-          'should return server failure when the call to remote data source is unsuccessful ',
-          () async {
-        when(mockMovieRemoteDataSource.getMovieDetail())
-            .thenThrow(ServerException());
+        'should return server failure when the call to remote data source is unsuccessful ',
+        () async {
+          when(
+            mockMovieRemoteDataSource.getMovieDetail(10),
+          ).thenThrow(ServerException());
 
-        final result = await repository.getMovieDetail();
+          final result = await repository.getMovieDetail(10);
 
-        verify(mockMovieRemoteDataSource.getMovieDetail());
-        verifyZeroInteractions(mockMovieLocalDataSource);
-        expect(result, equals(Left(ServerFailure())));
-      });
+          verify(mockMovieRemoteDataSource.getMovieDetail(10));
+          verifyZeroInteractions(mockMovieLocalDataSource);
+          expect(result, equals(Left(ServerFailure())));
+        },
+      );
     });
   });
 }
