@@ -45,7 +45,7 @@ Future<void> init() async {
 
   // Data Sources
   serviceLocalizator.registerLazySingleton<MovieRemoteDataSource>(
-    () => MovieRemoteDataSourceImpl(dioClient: serviceLocalizator()),
+    () => MovieRemoteDataSourceImpl(dioClient: serviceLocalizator<DioClient>()),
   );
 
   serviceLocalizator.registerLazySingleton<MovieLocalDataSource>(
@@ -59,7 +59,7 @@ Future<void> init() async {
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocalizator.registerLazySingleton(() => sharedPreferences);
-  serviceLocalizator.registerLazySingleton(() => DioClient());
+  serviceLocalizator.registerLazySingleton<DioClient>(() => DioClient());
   serviceLocalizator.registerLazySingleton(
     () => InternetConnectionChecker.instance,
   );

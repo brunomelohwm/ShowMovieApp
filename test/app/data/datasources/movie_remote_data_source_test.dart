@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mockito/annotations.dart';
 import 'package:show_movie_app/app/core/error/exceptions.dart';
 import 'package:show_movie_app/app/core/network/dio_client.dart';
@@ -9,36 +11,38 @@ import 'package:dio/dio.dart';
 import '../../../fixtures/fixture_reader.dart';
 import 'movie_remote_data_source_test.mocks.dart';
 
-@GenerateMocks([DioClient])
+@GenerateMocks([Dio])
 void main() {
   late MovieRemoteDataSourceImpl dataSource;
-  late MockDioClient mockDioClient;
+  late MockDio mockDio;
+  late DioClient dioClient;
 
   setUp(() {
-    mockDioClient = MockDioClient();
-    dataSource = MovieRemoteDataSourceImpl(dioClient: mockDioClient);
+    mockDio = MockDio();
+    dioClient = DioClient(dio: mockDio);
+    dataSource = MovieRemoteDataSourceImpl(dioClient: dioClient);
   });
 
   void setUpMockDioClientSuccess200() {
-    when(
-      mockDioClient.dio.get('https://api.themoviedb.org/3/movie/popular'),
-    ).thenAnswer(
+    when(mockDio.get('/movie/popular')).thenAnswer(
       (_) async => Response(
         requestOptions: RequestOptions(path: ''),
-        data: fixture('response_movie.json'),
+        data: json.decode(fixture('response_movie.json')),
         statusCode: 200,
       ),
     );
   }
 
   void setUpMockDioClientFailure404() {
-    when(
-      mockDioClient.dio.get('https://api.themoviedb.org/3/movie/popular'),
-    ).thenAnswer(
-      (_) async => Response(
-        requestOptions: RequestOptions(path: ''),
-        data: 'Something went Wrong',
-        statusCode: 404,
+    when(mockDio.get('/movie/popular')).thenThrow(
+      DioException(
+        requestOptions: RequestOptions(path: '/movie/popular'),
+        response: Response(
+          requestOptions: RequestOptions(path: '/movie/popular'),
+          statusCode: 404,
+          data: 'Something went Wrong',
+        ),
+        type: DioExceptionType.badResponse,
       ),
     );
   }
@@ -62,9 +66,7 @@ void main() {
 
         final result = await dataSource.getMoviePopular();
         expect(result, tMovieModel);
-        verify(
-          mockDioClient.dio.get('https://api.themoviedb.org/3/movie/popular'),
-        );
+        verify(mockDio.get('/movie/popular'));
       },
     );
 

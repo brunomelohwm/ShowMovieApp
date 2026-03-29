@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../injection_container.dart';
+import 'package:show_movie_app/app/core/utils/horizontal_list_view_wrapper.dart';
 import '../bloc/movie_free_to_watch_bloc/movie_free_to_watch_bloc.dart';
 import '../bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import '../widgets/card_movie_widget.dart';
@@ -15,115 +15,83 @@ class MoviesHomePage extends StatefulWidget {
 }
 
 class _MoviesHomePageState extends State<MoviesHomePage> {
-  late final MoviePopularBloc blocMoviePopular;
-  late final MovieFreeToWatchBloc blocMovieFreeToWatch;
-
-  @override
-  void initState() {
-    super.initState();
-    blocMoviePopular = MoviePopularBloc(serviceLocalizator());
-    blocMoviePopular.add(GetMoviePopularEvent());
-
-    blocMovieFreeToWatch = MovieFreeToWatchBloc(serviceLocalizator());
-    blocMovieFreeToWatch.add(GetMovieFreeToWatchEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildBody(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildBody(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => serviceLocalizator<MoviePopularBloc>()),
-        BlocProvider(create: (_) => serviceLocalizator<MovieFreeToWatchBloc>()),
-      ],
-      child: SafeArea(
-        child: Column(
-          //const EdgeInsets.only(left: 5, top: 50),
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-              ),
-              child: const Text(
-                'Os Mais Populares',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // Título "Os Mais Populares"
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  'Os Mais Populares',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               ),
             ),
+
+            // Lista de filmes populares
             BlocBuilder<MoviePopularBloc, MoviePopularState>(
-              bloc: blocMoviePopular,
               builder: (context, state) {
-                if (state is MoviePopularInitialState) {
-                  return const MessageDisplay(message: 'Iniciando');
-                } else if (state is MoviePopularLoadingState) {
-                  return const LoadingWidget();
+                if (state is MoviePopularLoadingState ||
+                    state is MoviePopularInitialState) {
+                  return SliverToBoxAdapter(child: const LoadingWidget());
                 } else if (state is MoviePopularLoadedState) {
-                  final moviePopularList = state.moviePopular;
-                  return SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: moviePopularList.length,
+                  return SliverToBoxAdapter(
+                    child: HorizontalListView(
+                      itemCount: state.moviePopular.length,
                       itemBuilder: (context, index) {
-                        final movie = moviePopularList[index];
-                        return CardMovieWidget(movie: movie);
+                        return CardMovieWidget(
+                          movie: state.moviePopular[index],
+                        );
                       },
                     ),
                   );
                 } else if (state is ErrorMoviePopularState) {
-                  return MessageDisplay(message: state.message);
+                  return SliverToBoxAdapter(
+                    child: MessageDisplay(message: state.message),
+                  );
                 }
-                return Container();
+                return SliverToBoxAdapter(child: Container());
               },
             ),
-            Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-              ),
-              child: const Text(
-                'Grátis Para Assitir',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+
+            // Título "Grátis para Assistir"
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  'Grátis Para Assistir',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               ),
             ),
+
+            // Lista de filmes free-to-watch
             BlocBuilder<MovieFreeToWatchBloc, MovieFreeToWatchState>(
-              bloc: blocMovieFreeToWatch,
               builder: (context, state) {
-                if (state is MovieFreeToWatchInitialState) {
-                  return const MessageDisplay(message: 'Iniciando');
-                } else if (state is MovieFreeToWatchLoadingState) {
-                  return const LoadingWidget();
+                if (state is MovieFreeToWatchLoadingState ||
+                    state is MovieFreeToWatchInitialState) {
+                  return SliverToBoxAdapter(child: const LoadingWidget());
                 } else if (state is MovieFreeToWatchLoadedState) {
-                  final blocMovieFreeToWatchList = state.movieFreeToWatch;
-                  return SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: blocMovieFreeToWatchList.length,
+                  return SliverToBoxAdapter(
+                    child: HorizontalListView(
+                      itemCount: state.movieFreeToWatch.length,
                       itemBuilder: (context, index) {
-                        final movie = blocMovieFreeToWatchList[index];
-                        return CardMovieWidget(movie: movie);
+                        return CardMovieWidget(
+                          movie: state.movieFreeToWatch[index],
+                        );
                       },
                     ),
                   );
                 } else if (state is ErrorMovieFreeToWatchState) {
-                  return MessageDisplay(message: state.message);
+                  return SliverToBoxAdapter(
+                    child: MessageDisplay(message: state.message),
+                  );
                 }
-                return Container();
+                return SliverToBoxAdapter(child: Container());
               },
             ),
           ],

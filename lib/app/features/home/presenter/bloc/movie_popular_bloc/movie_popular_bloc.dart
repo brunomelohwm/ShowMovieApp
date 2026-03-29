@@ -7,9 +7,6 @@ import '../../../../../domain/usecases/get_movie_popular_usecase.dart';
 part 'movie_popular_event.dart';
 part 'movie_popular_state.dart';
 
-//const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-//const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-
 const String serverFailureMessage = 'Server Failure';
 const String cacheFailureMessage = 'Cache Failure';
 
