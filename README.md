@@ -1,16 +1,55 @@
 # show_movie_app
 
-A new Flutter project.
+# 🎬 Movies App
 
-## Getting Started
+A Flutter application developed to practice and apply clean architecture principles and best practices in mobile development.
 
-This project is a starting point for a Flutter application.
+## 🧠 Purpose
 
-A few resources to get you started if this is your first Flutter project:
+This project was created as a study case to focus on code organization, scalability, and maintainability, applying concepts such as:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clean Architecture
+- Separation of concerns
+- State management
+- REST API consumption
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Technologies
+
+- Flutter / Dart
+- Clean Architecture
+- State Management: Bloc 
+- REST API integration
+
+## 📱 Features
+
+- Movie listing
+- Basic data display from API
+
+## 🛠️ Project Structure
+
+The project follows Clean Architecture principles, organized into layers such as:
+
+- Presentation
+- Domain
+- Data
+
+This structure improves code readability, testability, and long-term maintenance.
+
+## 📌 Notes
+
+This is a study-oriented project focused on applying best practices and improving code quality.
+
+## 🔄 Future Improvements
+
+This project is still evolving and will be expanded with new features and improvements over time, such as:
+
+- User authentication (login)
+- Navigation improvements and routing
+- Additional features and screens
+- Enhancements in architecture and code organization
+
+## ▶️ Getting Started
+
+```bash
+flutter pub get
+flutter run
