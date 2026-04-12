@@ -3,64 +3,58 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:show_movie_app/app/core/network/dio_client.dart';
 import 'package:show_movie_app/app/core/network/network_info.dart';
+import 'package:show_movie_app/app/features/domain/usecases/get_movie_details_usecase.dart';
+import 'package:show_movie_app/app/features/presentation/movie_details/bloc/movie_details_bloc.dart';
 
-import 'app/data/datasources/movie_local_datasource.dart';
-import 'app/data/datasources/movie_remote_datasource.dart';
-import 'app/data/repositories/movie_repository_impl.dart';
-import 'app/domain/repositories/movie_repository.dart';
-import 'app/domain/usecases/get_movie_free_to_watch_usecase.dart';
-import 'app/domain/usecases/get_movie_popular_usecase.dart';
-import 'app/features/home/presenter/bloc/movie_free_to_watch_bloc/movie_free_to_watch_bloc.dart';
-import 'app/features/home/presenter/bloc/movie_popular_bloc/movie_popular_bloc.dart';
+import 'app/features/data/datasources/movie_local_datasource.dart';
+import 'app/features/data/datasources/movie_remote_datasource.dart';
+import 'app/features/data/repositories/movie_repository_impl.dart';
+import 'app/features/domain/repositories/movie_repository.dart';
+import 'app/features/domain/usecases/get_movie_free_to_watch_usecase.dart';
+import 'app/features/domain/usecases/get_movie_popular_usecase.dart';
+import 'app/features/presentation/home/bloc/movie_free_to_watch_bloc/movie_free_to_watch_bloc.dart';
+import 'app/features/presentation/home/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 
-final serviceLocalizator = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> init() async {
   //! Features - Movies List
   // Bloc
-  serviceLocalizator.registerFactory(
-    () => MoviePopularBloc(serviceLocalizator()),
-  );
+  sl.registerFactory(() => MoviePopularBloc(sl()));
 
-  serviceLocalizator.registerFactory(
-    () => MovieFreeToWatchBloc(serviceLocalizator()),
-  );
+  sl.registerFactory(() => MovieFreeToWatchBloc(sl()));
+  sl.registerFactory(() => MovieDetailsBloc(sl()));
 
   //Use Cases
-  serviceLocalizator.registerLazySingleton(
-    () => GetMoviePopularUsecase(repository: serviceLocalizator()),
-  );
-  serviceLocalizator.registerLazySingleton(
-    () => GetMovieFreeToWatchUsecase(repository: serviceLocalizator()),
-  );
+  sl.registerLazySingleton(() => GetMoviePopularUsecase(repository: sl()));
+  sl.registerLazySingleton(() => GetMovieFreeToWatchUsecase(repository: sl()));
+  sl.registerLazySingleton(() => GetMovieDetailUsecase(repository: sl()));
 
   //Respository
-  serviceLocalizator.registerLazySingleton<MovieRepository>(
+  sl.registerLazySingleton<MovieRepository>(
     () => MovieRepositoryImpl(
-      movieRemoteDataSource: serviceLocalizator(),
-      movieLocalDataSource: serviceLocalizator(),
-      networkInfo: serviceLocalizator(),
+      movieRemoteDataSource: sl(),
+      movieLocalDataSource: sl(),
+      networkInfo: sl(),
     ),
   );
 
   // Data Sources
-  serviceLocalizator.registerLazySingleton<MovieRemoteDataSource>(
-    () => MovieRemoteDataSourceImpl(dioClient: serviceLocalizator<DioClient>()),
+  sl.registerLazySingleton<MovieRemoteDataSource>(
+    () => MovieRemoteDataSourceImpl(dioClient: sl<DioClient>()),
   );
 
-  serviceLocalizator.registerLazySingleton<MovieLocalDataSource>(
-    () => MovieLocalDataSourceImpl(sharedPreferences: serviceLocalizator()),
+  sl.registerLazySingleton<MovieLocalDataSource>(
+    () => MovieLocalDataSourceImpl(sharedPreferences: sl()),
   );
   //! Core
-  serviceLocalizator.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(connectionChecker: serviceLocalizator()),
+  sl.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(connectionChecker: sl()),
   );
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
-  serviceLocalizator.registerLazySingleton(() => sharedPreferences);
-  serviceLocalizator.registerLazySingleton<DioClient>(() => DioClient());
-  serviceLocalizator.registerLazySingleton(
-    () => InternetConnectionChecker.instance,
-  );
+  sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton<DioClient>(() => DioClient());
+  sl.registerLazySingleton(() => InternetConnectionChecker.instance);
 }

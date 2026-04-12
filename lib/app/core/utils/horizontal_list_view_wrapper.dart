@@ -22,7 +22,11 @@ class HorizontalListView extends StatelessWidget {
       child: Listener(
         onPointerSignal: (event) {
           if (event is PointerScrollEvent) {
-            controller.jumpTo(controller.offset + event.scrollDelta.dy);
+            controller.animateTo(
+              controller.offset + event.scrollDelta.dy,
+              duration: const Duration(milliseconds: 80),
+              curve: Curves.easeOut,
+            );
           }
         },
         child: ScrollConfiguration(
