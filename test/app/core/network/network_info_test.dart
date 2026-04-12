@@ -6,7 +6,6 @@ import 'package:show_movie_app/app/core/network/network_info.dart';
 
 import 'network_info_test.mocks.dart';
 
-//import 'package:'
 
 @GenerateMocks([InternetConnectionChecker])
 void main() {
